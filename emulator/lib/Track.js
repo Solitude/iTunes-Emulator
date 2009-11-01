@@ -1,5 +1,4 @@
 include("emulator/Tools.js");
-include("emulator/XMLLoader.js");
 
 function Track() 
 {
