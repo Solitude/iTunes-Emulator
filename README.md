@@ -8,7 +8,7 @@ This is developed on a Mac with Snow Leopard, but should work on any computer wi
 
 ## Usage
 
-You can use the emulator by including the iTunesEmulator.js in your iTunes LP or iTunes Extras project and referencing the JavaScript file from your HTML. That should be enough to prevent JavaScript errors from occurring, however if you really want to properly test you should also modify the iTunesLibrary.js file to describe the library content you want to use.
+You can use the emulator by including the iTunesEmulator.js in your iTunes LP or iTunes Extras project and referencing the JavaScript file from your HTML. To properly function you also need to tell the emulator where it can find the XML export of your iTunes Library. This XML file is written to your iTunes folder every time you exit iTunes. You can copy all the required code from the provided index.html.
 
 ## Emulation Compatibility
 
