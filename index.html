@@ -1,0 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+  "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="hdtv-fullscreen" content="TRUE"/>
+<meta name="hdtv-cursor-off" content="TRUE"/>
+
+<title>iTunes Emulator</title>
+
+<!-- iTunes Emulator + configuration -->
+<script language="javascript" type="text/javascript">
+// Configure this to point to your own library
+var iTunesMusicLibrary = "file://localhost/Users/solitude/Music/iTunes/iTunes%20Music%20Library.xml";
+</script>
+<script src="emulator/iTunesEmulator.js" language="javascript" type="text/javascript"></script>
+<!-- - - - - - - - - - - - - - - - - -->
+
+<!-- Test cases -->
+<script language="javascript" type="text/javascript">
+	
+	// Show what platform we are running on
+	alert("Emulating iTunes " + window.iTunes.version + " for " + window.iTunes.platform);
+	
+</script>
+<!-- - - - - -  -->
+
+</head>
+<body>
+
+</body>
+</html>
