@@ -12,6 +12,7 @@
 <script language="javascript" type="text/javascript">
 // Configure this to point to your own library
 var iTunesMusicLibrary = "file://localhost/Users/solitude/Music/iTunes/iTunes%20Music%20Library.xml";
+var simulatePlatform = "AppleTV";
 </script>
 <script src="emulator/iTunesEmulator.js" language="javascript" type="text/javascript"></script>
 <!-- - - - - - - - - - - - - - - - - -->
@@ -21,6 +22,9 @@ var iTunesMusicLibrary = "file://localhost/Users/solitude/Music/iTunes/iTunes%20
 	
 	// Show what platform we are running on
 	alert("Emulating iTunes " + window.iTunes.version + " for " + window.iTunes.platform);
+	
+	var theSystemSounds = window.iTunes.getSystemSounds();
+	setTimeout("theSystemSounds.playSystemSound(theSystemSounds.SystemSoundScrollLimit);", 1000);
 	
 </script>
 <!-- - - - - -  -->

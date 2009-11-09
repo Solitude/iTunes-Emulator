@@ -1,4 +1,5 @@
 include("emulator/lib/Library.js");
+include("emulator/lib/SystemSounds.js");
 include("emulator/lib/Playlist.js");
 
 function iTunesEmulator(iTunesMusicLibraryURL)
@@ -14,15 +15,29 @@ function iTunesEmulator(iTunesMusicLibraryURL)
 	this._trackList = null;
 	this._trackNumber = 0;
 	
+	var baseURLParts = location.href.split("\\").join("/").split("/");
+	baseURLParts.pop();
+	this._baseURL = baseURLParts.join("/") + "/";
+	
+	/* System sounds for AppleTV */
+	this._systemSounds = new SystemSounds();
+	
 	/* Global iTunes properties */
 	this.platform = "Mac";
-	if (navigator.appVersion.indexOf("Win")!=-1) this.platform="Win";
-	if (navigator.appVersion.indexOf("Mac")!=-1) this.platform="Mac";
-	this.version = "9.0.2";
-	this.quickTimeVersion = "7.6.3";
+	if (navigator.appVersion.indexOf("Win") != -1) this.platform = "Win";
+	if (navigator.appVersion.indexOf("Mac") != -1) this.platform = "Mac";
+	
+	if (typeof simulatePlatform != "undefined") {
+		if (simulatePlatform.toLowerCase().substr(0,3) == "win") this.platform = "Win";
+		if (simulatePlatform.toLowerCase().substr(0,3) == "mac") this.platform = "Mac";
+		if (simulatePlatform.toLowerCase().substr(0,7) == "appletv") this.platform = "AppleTV";
+	}	
+	
+	this.version = (this.platform == "AppleTV") ? "3.0" : "9.0.2";
+	this.quickTimeVersion = (this.platform == "AppleTV") ? "7.1.8" : "7.6.3";
 	this.acceptedLanguages = "en-us, en;q=0.50";
 
-	this.volume = 1;
+	this.volume = 0.99;
 	this.isMuted = false;
 	this.currentPlayerState = this.StoppedState;
 	this.currentPlayingTrack = null;
@@ -34,7 +49,10 @@ function iTunesEmulator(iTunesMusicLibraryURL)
 	this.waveform = null;
 
 	this.isCoverFlowAvailable = false;
-	this.screenReaderRunning = false;
+	
+	if (this.platform != "AppleTV") {
+		this.screenReaderRunning = false;
+	}
 	
 	this._audioEngine = new Audio();
 	this._audioEngine.style.display = "none";
@@ -182,6 +200,16 @@ iTunesEmulator.prototype.createTempPlaylist = function()
 {
 	var thePlaylist = new Playlist();
 	return thePlaylist;
+}
+
+iTunesEmulator.prototype.getSystemSounds = function()
+{
+	if (this.platform == "AppleTV") {
+		return this._systemSounds;
+	} else {
+		// This method only exists on AppleTV
+		return null;
+	}
 }
 
 iTunesEmulator.prototype._play = function(aTrackList, aTrackNumber)
